@@ -137,81 +137,81 @@ class _ProDesScreenState extends State<ProDesScreen> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 30.0,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Text(
-                  'MATERIAL',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 25.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              SizedBox(height: 25.0),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 50.0,
-                      width: 50.0,
-                      child: Icon(
-                        Icons.time_to_leave,
-                        color: Colors.grey,
-                        size: 40.0,
-                      ),
-                    ),
-                    Text(
-                      'x30%',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 17.0,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500
-                      ),
-                    ),
-                    SizedBox(width: 10.0,),
-                    Container(
-                      height: 50.0,
-                      width: 50.0,
-                      child: Icon(
-                        Icons.timer,
-                        color: Colors.grey,
-                        size: 40.0,
-                      ),
-                    ),
-                    Text(
-                      'x60%',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 17.0,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500
-                      ),
-                    ),
-                    SizedBox(width: 10.0,),
-                    Container(
-                      height: 50.0,
-                      width: 50.0,
-                      child: Icon(
-                        Icons.monetization_on,
-                        color: Colors.grey,
-                        size: 40.0,
-                      ),
-                    ),
-                    Text(
-                      'x10%',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 17.0,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500
-                      ),
-                    ),
-                  ],
-                ),
-              )
+              // SizedBox(
+              //   height: 30.0,
+              // ),
+              // Padding(
+              //   padding: EdgeInsets.only(left: 15.0),
+              //   child: Text(
+              //     'MATERIAL',
+              //     style: GoogleFonts.montserrat(
+              //       fontSize: 25.0,
+              //       color: Colors.black,
+              //       fontWeight: FontWeight.w500,
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 25.0),
+              // Padding(
+              //   padding: EdgeInsets.only(left: 15.0),
+              //   child: Row(
+              //     children: [
+              //       Container(
+              //         height: 50.0,
+              //         width: 50.0,
+              //         child: Icon(
+              //           Icons.time_to_leave,
+              //           color: Colors.grey,
+              //           size: 40.0,
+              //         ),
+              //       ),
+              //       Text(
+              //         'x30%',
+              //         style: GoogleFonts.montserrat(
+              //           fontSize: 17.0,
+              //           color: Colors.black,
+              //           fontWeight: FontWeight.w500
+              //         ),
+              //       ),
+              //       SizedBox(width: 10.0,),
+              //       Container(
+              //         height: 50.0,
+              //         width: 50.0,
+              //         child: Icon(
+              //           Icons.timer,
+              //           color: Colors.grey,
+              //           size: 40.0,
+              //         ),
+              //       ),
+              //       Text(
+              //         'x60%',
+              //         style: GoogleFonts.montserrat(
+              //           fontSize: 17.0,
+              //           color: Colors.black,
+              //           fontWeight: FontWeight.w500
+              //         ),
+              //       ),
+              //       SizedBox(width: 10.0,),
+              //       Container(
+              //         height: 50.0,
+              //         width: 50.0,
+              //         child: Icon(
+              //           Icons.monetization_on,
+              //           color: Colors.grey,
+              //           size: 40.0,
+              //         ),
+              //       ),
+              //       Text(
+              //         'x10%',
+              //         style: GoogleFonts.montserrat(
+              //           fontSize: 17.0,
+              //           color: Colors.black,
+              //           fontWeight: FontWeight.w500
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ],

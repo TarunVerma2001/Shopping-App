@@ -1,16 +1,30 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Screens/login_screen.dart';
 import 'package:furniture_app/Screens/stats_screen.dart';
+import 'package:furniture_app/services/usermanagement.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+bool userStatus = false;
+var currentUser = FirebaseAuth.instance.currentUser;
 class HomeTopContainer extends StatefulWidget {
-  const HomeTopContainer({Key? key}) : super(key: key);
 
   @override
   _HomeTopContainerState createState() => _HomeTopContainerState();
 }
 
 class _HomeTopContainerState extends State<HomeTopContainer> {
+  @override
+  void initState() {
+    super.initState();
+    loggedIn();
+    print(userStatus);
+  }
+
+  loggedIn() {
+    userStatus = isLoggedIn();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -56,8 +70,9 @@ class _HomeTopContainerState extends State<HomeTopContainer> {
                   width: 15.0,
                 ),
                 GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return LoginScreen();
                     }));
                   },
@@ -66,14 +81,28 @@ class _HomeTopContainerState extends State<HomeTopContainer> {
                     height: 50,
                     width: 50,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25.0),
-                        border: Border.all(
-                            color: Colors.white,
-                            style: BorderStyle.solid,
-                            width: 2.0),
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/chris.jpg'),
-                        )),
+                      color: Colors.teal,
+                      borderRadius: BorderRadius.circular(25.0),
+                      border: Border.all(
+                          color: Colors.white,
+                          style: BorderStyle.solid,
+                          width: 2.0),
+                      // image: DecorationImage(
+                      //   image: AssetImage('assets/images/chris.jpg'),
+                      // ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        userStatus
+                        ? currentUser!.email.toString()[0].toUpperCase()
+                        : 'SI'
+                        , style: GoogleFonts.quicksand(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -101,9 +130,9 @@ class _HomeTopContainerState extends State<HomeTopContainer> {
             Padding(
               padding: EdgeInsets.only(left: 15.0),
               child: Text(
-                'Hello , Pino',
+                'Hello!',
                 style: GoogleFonts.quicksand(
-                    fontSize: 30.0, fontWeight: FontWeight.bold),
+                    fontSize: 35.0, fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(

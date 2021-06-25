@@ -16,6 +16,7 @@ class _ShopCartTopContainerState extends State<ShopCartTopContainer> {
     super.initState();
     getTotalAmount();
   }
+
   List<int> price = [800, 1200, 900];
   List<bool> picked = [true, true, true];
 
@@ -75,89 +76,98 @@ class _ShopCartTopContainerState extends State<ShopCartTopContainer> {
           ),
         ),
         Padding(
-            padding: EdgeInsets.only(top: 15.0),
+            padding: EdgeInsets.only(top: 30.0),
             child: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: Icon(
+                Icons.arrow_back,
+                size: 30,
+              ),
               alignment: Alignment.topLeft,
               onPressed: () {
                 Navigator.pop(context);
               },
             )),
         Positioned(
-          top: 75.0,
+          top: 85.0,
           left: 15.0,
           child: Text(
             'Shopping Cart',
             style: GoogleFonts.montserrat(
-              fontSize: 30.0,
+              fontSize: 40.0,
               fontWeight: FontWeight.w500,
             ),
           ),
         ),
-        Positioned(
-          top: 150.0,
-          child: Column(
-            children: [
-              ItemCard('Dell Inspiron 14', price[0].toString(), 'assets/images/dell1.jpg', 0,
-                  'grey'),
-              ItemCard('Macbook Pro 16inch', price[1].toString(),
-                  'assets/images/macbookPro.jpeg', 1, 'grey'),
-              ItemCard('Asus ROG Strix G15', price[2].toString(), 'assets/images/rog1.jpeg',
-                  2, 'black'),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height - 65, bottom: 15.0),
-          child: Container(
-            height: 50.0,
-            width: double.infinity,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+        Container(
+          child: Positioned(
+            child: ListView(
               children: [
-                Text(
-                  'Total: \$' + totalAmount.toString(),
-                  style: GoogleFonts.quicksand(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20.0,
-                  ),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Material(
-                      elevation: 0.5,
-                      child: Container(
-                        color: Colors.red,
-                        height: 50.0,
-                        width: 150,
-                        child: Center(
-                          child: Center(
-                            child: Text(
-                              'Pay Now',
-                              style: GoogleFonts.quicksand(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                SizedBox(height: 150),
+                ItemCard('Dell Inspiron 14', price[0].toString(),
+                    'assets/images/dell1.jpg', 0, 'grey'),
+                ItemCard('Macbook Pro 16inch', price[1].toString(),
+                    'assets/images/macbookPro.jpeg', 1, 'grey'),
+                ItemCard('Asus ROG Strix G15', price[2].toString(),
+                    'assets/images/rog1.jpeg', 2, 'black'),
+                ItemCard('Asus ROG Strix G15', price[2].toString(),
+                    'assets/images/rog1.jpeg', 2, 'black'),
+                ItemCard('Asus ROG Strix G15', price[2].toString(),
+                    'assets/images/rog1.jpeg', 2, 'black'),
               ],
             ),
           ),
-        )
+        ),
+        // Padding(
+        //   padding: EdgeInsets.only(
+        //       top: MediaQuery.of(context).size.height - 65, bottom: 15.0),
+        //   child: Container(
+        //     height: 50.0,
+        //     width: double.infinity,
+        //     color: Colors.white,
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.end,
+        //       children: [
+        //         Text(
+        //           'Total: \$' + totalAmount.toString(),
+        //           style: GoogleFonts.quicksand(
+        //             color: Colors.black,
+        //             fontWeight: FontWeight.w500,
+        //             fontSize: 20.0,
+        //           ),
+        //         ),
+        //         SizedBox(
+        //           width: 10.0,
+        //         ),
+        //         Padding(
+        //           padding: EdgeInsets.all(8.0),
+        //           child: GestureDetector(
+        //             onTap: () {},
+        //             child: Material(
+        //               elevation: 0.5,
+        //               child: Container(
+        //                 color: Colors.red,
+        //                 height: 50.0,
+        //                 width: 150,
+        //                 child: Center(
+        //                   child: Center(
+        //                     child: Text(
+        //                       'Pay Now',
+        //                       style: GoogleFonts.quicksand(
+        //                         color: Colors.black,
+        //                         fontWeight: FontWeight.w500,
+        //                         fontSize: 20.0,
+        //                       ),
+        //                     ),
+        //                   ),
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //         )
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

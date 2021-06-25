@@ -1,8 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:furniture_app/Data/productInformation.dart';
 import 'package:furniture_app/Screens/pro_des_screen.dart';
+import 'package:furniture_app/services/crud.dart';
+import 'package:furniture_app/services/usermanagement.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+CrudMethods crudObj = new CrudMethods();
+QuerySnapshot data = crudObj.getData();
+bool userStatus = false;
 
 class HomeCatRibbon extends StatefulWidget {
   @override
@@ -11,86 +19,11 @@ class HomeCatRibbon extends StatefulWidget {
 
 class _HomeCatRibbonState extends State<HomeCatRibbon> {
   List<bool> active = [true, false, false, false];
-  List<List<List<String>>> ls = [
-    [
-      [
-        'assets/images/macbookPro.jpeg',
-        'assets/images/macbookPro1.jpeg',
-        'assets/images/macbookPro2.jpeg',
-      ],
-      [
-        'assets/images/rog1.jpeg',
-        'assets/images/rog2.jpeg',
-        'assets/images/rog3.jpeg',
-        'assets/images/rog4.jpeg',
-      ],
-      [
-        'assets/images/dell1.jpg',
-        'assets/images/dell2.jpg',
-        'assets/images/dell3.jpg',
-        'assets/images/dell4.jpg',
-      ]
-    ],
-    [
-      [
-        'assets/images/LG1.jpg',
-        'assets/images/LG2.jpg',
-        'assets/images/LG3.jpg',
-      ],
-      [
-        'assets/images/benq1.jpg',
-        'assets/images/benq2.jpg',
-        'assets/images/benq3.jpg',
-        'assets/images/benq4.jpg',
-      ],
-      [
-        'assets/images/lenovoThinkvision1.jpg',
-        'assets/images/lenovoThinkvision2.jpg',
-        'assets/images/lenovoThinkvision3.jpg',
-        'assets/images/lenovoThinkvision4.jpg',
-      ]
-    ],
-    [
-      [
-        'assets/images/macbookPro.jpeg',
-        'assets/images/macbookPro1.jpeg',
-        'assets/images/macbookPro2.jpeg',
-      ],
-      [
-        'assets/images/rog1.jpeg',
-        'assets/images/rog2.jpeg',
-        'assets/images/rog3.jpeg',
-        'assets/images/rog4.jpeg',
-      ],
-      [
-        'assets/images/dell1.jpg',
-        'assets/images/dell2.jpg',
-        'assets/images/dell3.jpg',
-        'assets/images/dell4.jpg',
-      ]
-    ],
-    [
-      [
-        'assets/images/LG1.jpg',
-        'assets/images/LG2.jpg',
-        'assets/images/LG3.jpg',
-      ],
-      [
-        'assets/images/benq1.jpg',
-        'assets/images/benq2.jpg',
-        'assets/images/benq3.jpg',
-        'assets/images/benq4.jpg',
-      ],
-      [
-        'assets/images/lenovoThinkvision1.jpg',
-        'assets/images/lenovoThinkvision2.jpg',
-        'assets/images/lenovoThinkvision3.jpg',
-        'assets/images/lenovoThinkvision4.jpg',
-      ]
-    ],
-  ];
+  List<List<Map>> names = ProductInformationList().names;
 
-  List<Column> cols = [];
+  loggedIn() {
+    userStatus = isLoggedIn();
+  }
 
   toggleActive(int index) {
     for (int i = 0; i < 4; i++) {
@@ -99,43 +32,38 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
     active[index] = true;
   }
 
+  Widget currentSelected() {
+    for (int i = 0; i < 4; i++) {
+      if (active[i]) {
+        // return cols[i];
+        return ListView.builder(
+            itemCount: names[i].length,
+            itemBuilder: (BuildContext context, int index) {
+              return itemCard(
+                  names[i][index]['name'],
+                  names[i][index]['images'][0],
+                  names[i][index]['images'],
+                  names[i][index]['price'],
+                  names[i][index]['id']);
+            });
+      }
+    }
+    return ListView.builder(
+        itemCount: names[0].length,
+        itemBuilder: (BuildContext context, int index) {
+          return itemCard(
+              names[0][index]['name'],
+              names[0][index]['images'][0],
+              names[0][index]['images'],
+              names[0][index]['price'],
+              names[0][index]['id']);
+        });
+  }
+
   @override
   void initState() {
+    loggedIn();
     super.initState();
-    cols = [
-      Column(
-        children: [
-          itemCard('MacBook Pro 16inch', 'assets/images/macbookPro1.jpeg', ls[0][0],
-              '1200'),
-          itemCard('Asus ROG Strix G15', 'assets/images/rog1.jpeg', ls[0][1], '900'),
-          itemCard('Dell Inspiron 14', 'assets/images/dell1.jpg', ls[0][2], '800'),
-        ],
-      ),
-      Column(
-        children: [
-          itemCard('LG 4k UHD', 'assets/images/LG1.jpg', ls[1][0],
-              '1200'),
-          itemCard('Benq 4k UHD', 'assets/images/benq1.jpg', ls[1][1], '900'),
-          itemCard('lenovoThinkvision', 'assets/images/lenovoThinkvision1.jpg', ls[1][2], '800'),
-        ],
-      ),
-      Column(
-        children: [
-          itemCard('MacBook Pro 16inch', 'assets/images/macbookPro1.jpeg', ls[0][0],
-              '1200'),
-          itemCard('Asus ROG Strix G15', 'assets/images/rog1.jpeg', ls[0][1], '900'),
-          itemCard('Dell Inspiron 14', 'assets/images/dell1.jpg', ls[0][2], '800'),
-        ],
-      ),
-      Column(
-        children: [
-          itemCard('LG', 'assets/images/LG1.jpg', ls[1][0],
-              '1200'),
-          itemCard('Benq', 'assets/images/benq1.jpg', ls[1][1], '900'),
-          itemCard('lenovoThinkvision', 'assets/images/lenovoThinkvision1.jpg', ls[1][2], '800'),
-        ],
-      ),
-    ];
   }
 
   @override
@@ -143,82 +71,113 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
     return Column(
       children: [
         Container(
-          height: 110,
+          height: 130,
+          // color: Colors.yellowAccent,
           width: MediaQuery.of(context).size.width,
-          child: Center(
-            child: Material(
-              elevation: 2.0,
-              child: Container(
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          toggleActive(0);
-                        });
-                      },
-                      child:
-                          Card('assets/icons/laptop.png', 'Laptop', active[0]),
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            toggleActive(1);
-                          });
-                        },
-                        child: Card(
-                            'assets/icons/monitor.png', 'Monitor', active[1])),
-                    GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            toggleActive(2);
-                          });
-                        },
-                        child: Card('assets/icons/keyboard1.png', 'KeyBoard',
-                            active[2])),
-                    GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            toggleActive(3);
-                          });
-                        },
-                        child:
-                            Card('assets/icons/mouse.png', 'Mouse', active[3])),
-                  ],
+          child: Stack(
+            children: [
+              Material(
+                elevation: 2.0,
+                child: Container(
+                  height: 130,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: 120,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: active[0] ? 0.0 : 10.0,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  toggleActive(0);
+                                });
+                              },
+                              child: Card('assets/icons/laptop.png', 'Laptop',
+                                  active[0]),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 120,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: active[1] ? 0.0 : 10.0,
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    toggleActive(1);
+                                  });
+                                },
+                                child: Card('assets/icons/monitor.png',
+                                    'Monitor', active[1])),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 120,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: active[2] ? 0.0 : 10.0,
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    toggleActive(2);
+                                  });
+                                },
+                                child: Card('assets/icons/keyboard1.png',
+                                    'KeyBoard', active[2])),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 120,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: active[3] ? 0.0 : 10.0,
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    toggleActive(3);
+                                  });
+                                },
+                                child: Card('assets/icons/mouse.png', 'Mouse',
+                                    active[3])),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
-        // itemCard('MacBook Pro 16inch', 'assets/images/macbookPro1.jpeg', ls[0][0],
-        //     '1200'),
-        // itemCard('Asus ROG Strix G15', 'assets/images/rog1.jpeg', ls[0][1], '900'),
-        // itemCard('Dell Inspiron 14', 'assets/images/dell1.jpg', ls[0][2], '800'),
-        // selectedRibbon(),
-        currentSelected(),
+        Container(
+          // color: Colors.yellowAccent,
+          height: MediaQuery.of(context).size.height * 2 / 3,
+          child: currentSelected(),
+        ),
       ],
     );
   }
 
-  
-
-  Widget currentSelected() {
-    
-    for(int i =0;i<4;i++){
-      if(active[i]){
-        return cols[i];
-      }
-    }
-    return cols[0];
-  }
   //* ITEM CARD
 
   Widget itemCard(
-      String title, String imgpath, List<String> photos, String price) {
+      String title, String imgpath, List<String> photos, String price, int id) {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -233,6 +192,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
         padding: EdgeInsets.only(left: 15, right: 15, top: 15),
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.2),
@@ -325,7 +285,31 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                         width: 5.0,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Map<String, dynamic> testData = {
+                            'ids': id.toString(),
+                          };
+                          crudObj.addData(testData).then(
+                                (value) => (userStatus
+                                    ? ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                        SnackBar(
+                                          content: Text("Succesfully Added"),
+                                          elevation: 5.0,
+                                          duration: Duration(milliseconds: 400),
+                                        ),
+                                      )
+                                    : ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                        SnackBar(
+                                          content: Text("You need to Sign In"),
+                                          elevation: 5.0,
+                                          duration: Duration(milliseconds: 600),
+                                        ),
+                                      )),
+                              );
+                          print("HII");
+                        },
                         child: Material(
                           elevation: 5.0,
                           borderRadius: BorderRadius.circular(5.0),
@@ -362,37 +346,82 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
   //*CARD
 
   Widget Card(String imgPath, String title, bool active) {
-    return Container(
-      height: 75,
-      width: MediaQuery.of(context).size.width / 4,
-      child: Column(
-        children: [
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(imgPath),
+    return Center(
+      child: Material(
+        borderRadius: BorderRadius.circular(10),
+        elevation: active ? 5.0 : 0.0,
+        child: AnimatedContainer(
+          curve: Curves.easeInOutCirc,
+          duration: Duration(milliseconds: 400),
+          height: active ? 110 : 100,
+          decoration: BoxDecoration(
+            color: active ? Color(0xfffccd42) : Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          width: MediaQuery.of(context).size.width / 4 - 10,
+          child: Center(
+            child: Container(
+              height: 75,
+              // color: Colors.red,
+              width: MediaQuery.of(context).size.width / 4,
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(imgPath),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        title,
+                        style: GoogleFonts.quicksand(),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
-          Text(
-            title,
-            style: GoogleFonts.quicksand(),
-          ),
-          active
-              ? Material(
-                  elevation: 2.0,
-                  child: Container(
-                    height: 5.0,
-                    width: MediaQuery.of(context).size.width / 4 - 20.0,
-                    decoration: BoxDecoration(
-                      color: Colors.yellow,
-                    ),
-                  ),
-                )
-              : Container(),
-        ],
+        ),
       ),
     );
   }
 }
+// cols = [
+    //   Column(
+    //     children: [
+    //       itemCard('MacBook Pro 16inch', 'assets/images/macbookPro1.jpeg', ls[0][0],
+    //           '1200'),
+    //       itemCard('Asus ROG Strix G15', 'assets/images/rog1.jpeg', ls[0][1], '900'),
+    //       itemCard('Dell Inspiron 14', 'assets/images/dell1.jpg', ls[0][2], '800'),
+    //     ],
+    //   ),
+    //   Column(
+    //     children: [
+    //       itemCard('LG 4k UHD', 'assets/images/LG1.jpg', ls[1][0],
+    //           '1200'),
+    //       itemCard('Benq 4k UHD', 'assets/images/benq1.jpg', ls[1][1], '900'),
+    //       itemCard('lenovoThinkvision', 'assets/images/lenovoThinkvision1.jpg', ls[1][2], '800'),
+    //     ],
+    //   ),
+    //   Column(
+    //     children: [
+    //       itemCard('MacBook Pro 16inch', 'assets/images/macbookPro1.jpeg', ls[0][0],
+    //           '1200'),
+    //       itemCard('Asus ROG Strix G15', 'assets/images/rog1.jpeg', ls[0][1], '900'),
+    //       itemCard('Dell Inspiron 14', 'assets/images/dell1.jpg', ls[0][2], '800'),
+    //     ],
+    //   ),
+    //   Column(
+    //     children: [
+    //       itemCard('LG', 'assets/images/LG1.jpg', ls[1][0],
+    //           '1200'),
+    //       itemCard('Benq', 'assets/images/benq1.jpg', ls[1][1], '900'),
+    //       itemCard('lenovoThinkvision', 'assets/images/lenovoThinkvision1.jpg', ls[1][2], '800'),
+    //     ],
+    //   ),
+    // ];

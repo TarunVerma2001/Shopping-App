@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1016555399656",
+    "project_id": "coders-shopping-app",
+    "storage_bucket": "coders-shopping-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016555399656:android:568b60d2de8a66ed88dc5d",
+        "android_client_info": {
+          "package_name": "com.CodersSoppingApp.furniture_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016555399656-3rh0fn6f7dajson1d5tne097dvta05ab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2VOg0yBndhxvDp15HdUACXAWx7OoNCuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1016555399656-3rh0fn6f7dajson1d5tne097dvta05ab.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
