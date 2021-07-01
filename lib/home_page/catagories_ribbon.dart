@@ -182,6 +182,9 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
 
   Widget itemCard(BuildContext context, String title, String imgpath,
       List<String> photos, String price, int id) {
+    String itemStatus = 'Add to Cart';
+    double elevation = 10;
+    Color color = Color(0xffF9C335);
     CardItemdata cardItemData = Provider.of<CardItemdata>(context);
     return GestureDetector(
       onTap: () {
@@ -293,9 +296,15 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                         onTap: () {
                           if (userStatus) {
                             if (cardItemData.data.contains(id)) {
-                              cardItemData.removeId(id);
-                              print(cardItemData.data);
                               
+                              setState(() {
+                                cardItemData.removeId(id);
+                                itemStatus = 'Add to Card';
+                                color = Color(0xffF9C335);
+                                elevation = 6;
+                              });
+                              print(cardItemData.data);
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text("Succesfully Removed!"),
@@ -304,8 +313,12 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                                 ),
                               );
                             } else {
-                              cardItemData.addId(id);
-
+                              setState(() {
+                                cardItemData.addId(id);
+                                itemStatus = 'Added';
+                                color = Color(0xffFEDD59);
+                                elevation = 0;
+                              });
                               print(cardItemData.data);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -324,18 +337,9 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                               ),
                             );
                           }
-
-                          // ScaffoldMessenger.of(context)
-                          //               .showSnackBar(
-                          //               SnackBar(
-                          //                 content: Text("You need to Sign In"),
-                          //                 elevation: 5.0,
-                          //                 duration: Duration(milliseconds: 600),
-                          //               ),
-                          //             );
                         },
                         child: Material(
-                          elevation: 5.0,
+                          elevation: 6.0,
                           borderRadius: BorderRadius.circular(5.0),
                           child: Container(
                             decoration: BoxDecoration(
@@ -346,7 +350,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                             width: 110.0,
                             child: Center(
                               child: Text(
-                                'Add to cart',
+                                itemStatus,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Quicksand',
@@ -415,37 +419,3 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
     );
   }
 }
-// cols = [
-    //   Column(
-    //     children: [
-    //       itemCard('MacBook Pro 16inch', 'assets/images/macbookPro1.jpeg', ls[0][0],
-    //           '1200'),
-    //       itemCard('Asus ROG Strix G15', 'assets/images/rog1.jpeg', ls[0][1], '900'),
-    //       itemCard('Dell Inspiron 14', 'assets/images/dell1.jpg', ls[0][2], '800'),
-    //     ],
-    //   ),
-    //   Column(
-    //     children: [
-    //       itemCard('LG 4k UHD', 'assets/images/LG1.jpg', ls[1][0],
-    //           '1200'),
-    //       itemCard('Benq 4k UHD', 'assets/images/benq1.jpg', ls[1][1], '900'),
-    //       itemCard('lenovoThinkvision', 'assets/images/lenovoThinkvision1.jpg', ls[1][2], '800'),
-    //     ],
-    //   ),
-    //   Column(
-    //     children: [
-    //       itemCard('MacBook Pro 16inch', 'assets/images/macbookPro1.jpeg', ls[0][0],
-    //           '1200'),
-    //       itemCard('Asus ROG Strix G15', 'assets/images/rog1.jpeg', ls[0][1], '900'),
-    //       itemCard('Dell Inspiron 14', 'assets/images/dell1.jpg', ls[0][2], '800'),
-    //     ],
-    //   ),
-    //   Column(
-    //     children: [
-    //       itemCard('LG', 'assets/images/LG1.jpg', ls[1][0],
-    //           '1200'),
-    //       itemCard('Benq', 'assets/images/benq1.jpg', ls[1][1], '900'),
-    //       itemCard('lenovoThinkvision', 'assets/images/lenovoThinkvision1.jpg', ls[1][2], '800'),
-    //     ],
-    //   ),
-    // ];

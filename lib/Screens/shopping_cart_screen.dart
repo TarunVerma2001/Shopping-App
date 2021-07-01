@@ -22,6 +22,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
   void initState() {
     super.initState();
     // getTotalAmount();
+    // countPrice();
     userStatus = isLoggedIn();
     controller = new TabController(length: 3, vsync: this);
   }
@@ -57,6 +58,20 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
   Widget build(BuildContext context) {
     CardItemdata cardItemData = Provider.of<CardItemdata>(context);
     List<int> ids = cardItemData.data;
+    void countPrice() {
+      totalAmount = 0;
+      for (int index = 0; index < ids.length; index++) {
+        for (int i = 0; i < 4; i++) {
+          for (int j = 0; j < names[i].length; j++) {
+            if (names[i][j].containsValue(ids[index])) {
+              totalAmount += int.parse(names[i][j]['price']);
+              print(totalAmount);
+            }
+          }
+        }
+      }
+    }
+    countPrice();
     // List<int> ids = [1, 2, 3, 6, 4, 3];
     return Scaffold(
       body: Column(
@@ -139,7 +154,10 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
                               for (int i = 0; i < 4; i++) {
                                 for (int j = 0; j < names[i].length; j++) {
                                   if (names[i][j].containsValue(ids[index])) {
+                                    // totalAmount += int.parse(names[i][j]['price']);
+                                    print(totalAmount);
                                     return ItemCard(
+                                      ids[index],
                                         cardItemData,
                                         names[i][j]['name'],
                                         names[i][j]['price'],
@@ -186,9 +204,13 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
                         child: GestureDetector(
                           onTap: () {},
                           child: Material(
-                            elevation: 0.5,
+                            borderRadius: BorderRadius.circular(10),
+                            elevation: 5,
                             child: Container(
-                              color: Colors.red,
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                               height: 50.0,
                               width: 150,
                               child: Center(
@@ -224,7 +246,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
     );
   }
 
-  Widget ItemCard(CardItemdata cardItemData, String itemName, String price,
+  Widget ItemCard(int id, CardItemdata cardItemData, String itemName, String price,
       String imgPath, String color) {
     return Padding(
       padding: EdgeInsets.all(10.0),
@@ -266,7 +288,6 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
                           fontSize: 15.0,
                         ),
                       ),
-                      
                     ],
                   ),
                   SizedBox(height: 30.0),
@@ -279,30 +300,43 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
                             fontSize: 20.0,
                             color: Color(0xFFFDD34A)),
                       ),
-                      SizedBox(width: 30,),
-                      Material(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(5), bottomRight: Radius.circular(12)),
-                        elevation: 3.0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFDD34A),
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(5), bottomRight: Radius.circular(12)),
-                          ),
-                          height: 40,
-                          width: 100,
-                          child: Center(
-                            child: Text('Remove', style: GoogleFonts.montserrat(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 17.0,
-                                color: Colors.white),),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            cardItemData.removeId(id);
+                          });
+                        },
+                        child: Material(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              bottomRight: Radius.circular(12)),
+                          elevation: 3.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFDD34A),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  bottomRight: Radius.circular(12)),
+                            ),
+                            height: 40,
+                            width: 100,
+                            child: Center(
+                              child: Text(
+                                'Remove',
+                                style: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17.0,
+                                    color: Colors.white),
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  
-                      
-                    
                 ],
               )
             ],
