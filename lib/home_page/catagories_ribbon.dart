@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:furniture_app/Data/CartItemData.dart';
 import 'package:furniture_app/Data/productInformation.dart';
 import 'package:furniture_app/Screens/pro_des_screen.dart';
 import 'package:furniture_app/services/crud.dart';
 import 'package:furniture_app/services/usermanagement.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 CrudMethods crudObj = new CrudMethods();
 QuerySnapshot data = crudObj.getData();
@@ -40,6 +42,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
             itemCount: names[i].length,
             itemBuilder: (BuildContext context, int index) {
               return itemCard(
+                  context,
                   names[i][index]['name'],
                   names[i][index]['images'][0],
                   names[i][index]['images'],
@@ -52,6 +55,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
         itemCount: names[0].length,
         itemBuilder: (BuildContext context, int index) {
           return itemCard(
+              context,
               names[0][index]['name'],
               names[0][index]['images'][0],
               names[0][index]['images'],
@@ -176,8 +180,9 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
 
   //* ITEM CARD
 
-  Widget itemCard(
-      String title, String imgpath, List<String> photos, String price, int id) {
+  Widget itemCard(BuildContext context, String title, String imgpath,
+      List<String> photos, String price, int id) {
+    CardItemdata cardItemData = Provider.of<CardItemdata>(context);
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -286,29 +291,48 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Map<String, dynamic> testData = {
-                            'ids': id.toString(),
-                          };
-                          crudObj.addData(testData).then(
-                                (value) => (userStatus
-                                    ? ScaffoldMessenger.of(context)
-                                        .showSnackBar(
-                                        SnackBar(
-                                          content: Text("Succesfully Added"),
-                                          elevation: 5.0,
-                                          duration: Duration(milliseconds: 400),
-                                        ),
-                                      )
-                                    : ScaffoldMessenger.of(context)
-                                        .showSnackBar(
-                                        SnackBar(
-                                          content: Text("You need to Sign In"),
-                                          elevation: 5.0,
-                                          duration: Duration(milliseconds: 600),
-                                        ),
-                                      )),
+                          if (userStatus) {
+                            if (cardItemData.data.contains(id)) {
+                              cardItemData.removeId(id);
+                              print(cardItemData.data);
+                              
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Succesfully Removed!"),
+                                  elevation: 5.0,
+                                  duration: Duration(milliseconds: 600),
+                                ),
                               );
-                          print("HII");
+                            } else {
+                              cardItemData.addId(id);
+
+                              print(cardItemData.data);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Succesfully Added!"),
+                                  elevation: 5.0,
+                                  duration: Duration(milliseconds: 600),
+                                ),
+                              );
+                            }
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("You need to Sign In!"),
+                                elevation: 5.0,
+                                duration: Duration(milliseconds: 600),
+                              ),
+                            );
+                          }
+
+                          // ScaffoldMessenger.of(context)
+                          //               .showSnackBar(
+                          //               SnackBar(
+                          //                 content: Text("You need to Sign In"),
+                          //                 elevation: 5.0,
+                          //                 duration: Duration(milliseconds: 600),
+                          //               ),
+                          //             );
                         },
                         child: Material(
                           elevation: 5.0,
