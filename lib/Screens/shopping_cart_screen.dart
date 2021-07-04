@@ -212,6 +212,13 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
                               users.add(shoppedItemsIds).catchError((err) {
                                 print(err);
                               });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Pushed List of Ids of selected items to firebase!"),
+                                  elevation: 5.0,
+                                  duration: Duration(milliseconds: 800),
+                                ),
+                              );
                             }
                           },
                           child: Material(
