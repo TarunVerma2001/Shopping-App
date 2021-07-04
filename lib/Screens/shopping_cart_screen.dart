@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Data/CartItemData.dart';
 import 'package:furniture_app/Data/productInformation.dart';
@@ -38,21 +41,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
   List<List<Map>> names = ProductInformationList().names;
   int totalAmount = 0;
 
-  // pickToggle(index) {
-  //   setState(() {
-  //     picked[index] = !picked[index];
-  //     getTotalAmount();
-  //   });
-  // }
-
-  // getTotalAmount() {
-  //   totalAmount = 0;
-  //   for (int i = 0; i < picked.length; i++) {
-  //     if (picked[i]) {
-  //       totalAmount += price[i];
-  //     }
-  //   }
-  // }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +191,29 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            if(totalAmount == 0){
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("No items in the Cart!"),
+                                  elevation: 5.0,
+                                  duration: Duration(milliseconds: 600),
+                                ),
+                              );
+                            } else{
+                              print(FirebaseAuth.instance.currentUser!.email.toString());
+                              print(cardItemData.data);
+                              print('hii');
+                              CollectionReference users = FirebaseFirestore.instance.collection('Shopped product Ids');
+                              Map<String, List> shoppedItemsIds = {
+                                // 'emaisk': 'hiiii'
+                                FirebaseAuth.instance.currentUser!.email.toString(): cardItemData.data,
+                              };
+                              users.add(shoppedItemsIds).catchError((err) {
+                                print(err);
+                              });
+                            }
+                          },
                           child: Material(
                             borderRadius: BorderRadius.circular(10),
                             elevation: 5,

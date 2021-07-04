@@ -42,12 +42,14 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
             itemCount: names[i].length,
             itemBuilder: (BuildContext context, int index) {
               return itemCard(
-                  context,
-                  names[i][index]['name'],
-                  names[i][index]['images'][0],
-                  names[i][index]['images'],
-                  names[i][index]['price'],
-                  names[i][index]['id']);
+                context,
+                names[i][index]['name'],
+                names[i][index]['images'][0],
+                names[i][index]['images'],
+                names[i][index]['price'],
+                names[i][index]['id'],
+                false,
+              );
             });
       }
     }
@@ -55,12 +57,14 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
         itemCount: names[0].length,
         itemBuilder: (BuildContext context, int index) {
           return itemCard(
-              context,
-              names[0][index]['name'],
-              names[0][index]['images'][0],
-              names[0][index]['images'],
-              names[0][index]['price'],
-              names[0][index]['id']);
+            context,
+            names[0][index]['name'],
+            names[0][index]['images'][0],
+            names[0][index]['images'],
+            names[0][index]['price'],
+            names[0][index]['id'],
+            false,
+          );
         });
   }
 
@@ -181,10 +185,8 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
   //* ITEM CARD
 
   Widget itemCard(BuildContext context, String title, String imgpath,
-      List<String> photos, String price, int id) {
-    String itemStatus = 'Add to Cart';
-    double elevation = 10;
-    Color color = Color(0xffF9C335);
+      List<String> photos, String price, int id, bool added) {
+    
     CardItemdata cardItemData = Provider.of<CardItemdata>(context);
     return GestureDetector(
       onTap: () {
@@ -296,12 +298,11 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                         onTap: () {
                           if (userStatus) {
                             if (cardItemData.data.contains(id)) {
-                              
                               setState(() {
                                 cardItemData.removeId(id);
-                                itemStatus = 'Add to Card';
-                                color = Color(0xffF9C335);
-                                elevation = 6;
+                                // setState(() {
+                                //   added = false;
+                                // });
                               });
                               print(cardItemData.data);
 
@@ -315,9 +316,12 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                             } else {
                               setState(() {
                                 cardItemData.addId(id);
-                                itemStatus = 'Added';
-                                color = Color(0xffFEDD59);
-                                elevation = 0;
+                                // itemStatus = 'Added';
+                                // color = Color(0xffFEDD59);
+                                // elevation = 0;
+                                // setState(() {
+                                //   added = true;
+                                // });
                               });
                               print(cardItemData.data);
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -350,7 +354,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                             width: 110.0,
                             child: Center(
                               child: Text(
-                                itemStatus,
+                                'Add to Cart',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Quicksand',
