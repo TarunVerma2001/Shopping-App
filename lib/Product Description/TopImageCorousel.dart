@@ -11,8 +11,6 @@ class TopImageCorousel extends StatefulWidget {
 class _TopImageCorouselState extends State<TopImageCorousel> {
   int photoIndex = 0;
 
-  
-
   void _previosImage() {
     setState(() {
       photoIndex = photoIndex > 0 ? photoIndex - 1 : 0;
@@ -34,7 +32,8 @@ class _TopImageCorouselState extends State<TopImageCorousel> {
           height: MediaQuery.of(context).size.height / 2.5,
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(widget.photos[photoIndex]), fit: BoxFit.contain),
+                image: AssetImage(widget.photos[photoIndex]),
+                fit: BoxFit.contain),
           ),
         ),
         GestureDetector(
@@ -42,6 +41,28 @@ class _TopImageCorouselState extends State<TopImageCorousel> {
             height: MediaQuery.of(context).size.height / 2.5,
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
+            
+              child: Align(
+                
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
           ),
           onTap: _nextImage,
         ),
@@ -50,6 +71,27 @@ class _TopImageCorouselState extends State<TopImageCorousel> {
             height: MediaQuery.of(context).size.height / 2.5,
             width: MediaQuery.of(context).size.width / 2,
             color: Colors.transparent,
+            child: Align(
+                
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
           ),
           onTap: _previosImage,
         ),
@@ -67,7 +109,6 @@ class _TopImageCorouselState extends State<TopImageCorousel> {
                   Navigator.pop(context);
                 },
               ),
-              
             ],
           ),
         ),
@@ -87,6 +128,7 @@ class _TopImageCorouselState extends State<TopImageCorousel> {
     );
   }
 }
+
 class SelectedPhotoIndicator extends StatelessWidget {
   final int numberOfDots;
   final int photoIndex;

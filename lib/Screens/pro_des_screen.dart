@@ -1,23 +1,43 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:furniture_app/Data/CartItemData.dart';
 import 'package:furniture_app/Product%20Description/TopImageCorousel.dart';
+import 'package:furniture_app/Screens/shopping_cart_screen.dart';
+import 'package:furniture_app/services/usermanagement.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+bool userStatus = false;
 
 class ProDesScreen extends StatefulWidget {
   List<String> photos;
   String title;
   String price;
-  ProDesScreen({required this.photos, required this.price, required this.title});
+  int id;
+  ProDesScreen(
+      {required this.photos,
+      required this.price,
+      required this.title,
+      required this.id});
 
   @override
   _ProDesScreenState createState() => _ProDesScreenState();
 }
 
 class _ProDesScreenState extends State<ProDesScreen> {
-  
+  loggedIn() {
+    userStatus = isLoggedIn();
+  }
+
+  @override
+  void initState() {
+    loggedIn();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    CardItemdata cardItemData = Provider.of<CardItemdata>(context);
     return Scaffold(
       body: ListView(
         shrinkWrap: true,
@@ -25,24 +45,11 @@ class _ProDesScreenState extends State<ProDesScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TopImageCorousel(photos: widget.photos,),
+              TopImageCorousel(
+                photos: widget.photos,
+              ),
               SizedBox(
                 height: 20.0,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 15.0,
-                ),
-                child: Text(
-                  'Alcide Number: 2323x',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 15.0,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10.0,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
@@ -59,32 +66,29 @@ class _ProDesScreenState extends State<ProDesScreen> {
                 height: 20.0,
               ),
               Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: Text(
+                  '\$ ' + widget.price,
+                  style: GoogleFonts.montserrat(
+                      fontSize: 25.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Padding(
                 padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                child: Row(
-                  children: [
-                    Container(
-                      width: (MediaQuery.of(context).size.width / 4 +
-                              MediaQuery.of(context).size.width / 2) -
-                          50.0,
-                      child: Text(
-                        'Scandinavian small size double sofa / imported full leather /Dale Italia oil wax leather black',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12.0,
-                          color: Colors.grey.withOpacity(0.8),
-                        ),
-                      ),
+                child: Container(
+                  // width: MediaQuery.of(context).size.width - 30,
+                  child: Text(
+                    'Best Laptop For Productivity. Consisting of High performance and No lack in quality and Durablity.',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 15.0,
+                      color: Colors.grey.withOpacity(0.8),
                     ),
-                    SizedBox(
-                      width: 4.0,
-                    ),
-                    Text(
-                      '\$ ' + widget.price,
-                      style: GoogleFonts.montserrat(
-                          fontSize: 25.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               SizedBox(
@@ -137,81 +141,6 @@ class _ProDesScreenState extends State<ProDesScreen> {
                   ],
                 ),
               ),
-              // SizedBox(
-              //   height: 30.0,
-              // ),
-              // Padding(
-              //   padding: EdgeInsets.only(left: 15.0),
-              //   child: Text(
-              //     'MATERIAL',
-              //     style: GoogleFonts.montserrat(
-              //       fontSize: 25.0,
-              //       color: Colors.black,
-              //       fontWeight: FontWeight.w500,
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: 25.0),
-              // Padding(
-              //   padding: EdgeInsets.only(left: 15.0),
-              //   child: Row(
-              //     children: [
-              //       Container(
-              //         height: 50.0,
-              //         width: 50.0,
-              //         child: Icon(
-              //           Icons.time_to_leave,
-              //           color: Colors.grey,
-              //           size: 40.0,
-              //         ),
-              //       ),
-              //       Text(
-              //         'x30%',
-              //         style: GoogleFonts.montserrat(
-              //           fontSize: 17.0,
-              //           color: Colors.black,
-              //           fontWeight: FontWeight.w500
-              //         ),
-              //       ),
-              //       SizedBox(width: 10.0,),
-              //       Container(
-              //         height: 50.0,
-              //         width: 50.0,
-              //         child: Icon(
-              //           Icons.timer,
-              //           color: Colors.grey,
-              //           size: 40.0,
-              //         ),
-              //       ),
-              //       Text(
-              //         'x60%',
-              //         style: GoogleFonts.montserrat(
-              //           fontSize: 17.0,
-              //           color: Colors.black,
-              //           fontWeight: FontWeight.w500
-              //         ),
-              //       ),
-              //       SizedBox(width: 10.0,),
-              //       Container(
-              //         height: 50.0,
-              //         width: 50.0,
-              //         child: Icon(
-              //           Icons.monetization_on,
-              //           color: Colors.grey,
-              //           size: 40.0,
-              //         ),
-              //       ),
-              //       Text(
-              //         'x10%',
-              //         style: GoogleFonts.montserrat(
-              //           fontSize: 17.0,
-              //           color: Colors.black,
-              //           fontWeight: FontWeight.w500
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ],
@@ -230,7 +159,11 @@ class _ProDesScreenState extends State<ProDesScreen> {
                 width: 10.0,
               ),
               InkWell(
-                onTap: (){},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return ShoppingCartScreen();
+                  }));
+                },
                 child: Container(
                   height: 50.0,
                   width: 50.0,
@@ -242,29 +175,61 @@ class _ProDesScreenState extends State<ProDesScreen> {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: (){},
+              GestureDetector(
+                onTap: () {
+                  if (userStatus) {
+                    if (cardItemData.data.contains(widget.id)) {
+                      setState(() {
+                        cardItemData.removeId(widget.id);
+                      });
+                      print(cardItemData.data);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Succesfully Removed!"),
+                          elevation: 5.0,
+                          duration: Duration(milliseconds: 600),
+                        ),
+                      );
+                    } else {
+                      setState(() {
+                        cardItemData.addId(widget.id);
+                        cardItemData.toggleAdded(widget.id);
+                      });
+                      print(cardItemData.data);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Succesfully Added!"),
+                          elevation: 5.0,
+                          duration: Duration(milliseconds: 600),
+                        ),
+                      );
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("You need to Sign In!"),
+                        elevation: 5.0,
+                        duration: Duration(milliseconds: 600),
+                      ),
+                    );
+                  }
+                },
                 child: Container(
-                  height: 50.0,
-                  width: 50.0,
-                  color: Colors.white,
-                  child: Icon(
-                    Icons.account_box,
-                    color: Colors.grey,
-                    size: 40.0,
-                  ),
-                ),
-              ),
-              Container(
-                color: Color(0xfffedd59),
-                width: MediaQuery.of(context).size.width - 140,
-                child: Center(
-                  child: Text(
-                    'Add to Cart',
-                    style: GoogleFonts.montserrat(
-                      fontSize: 24.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500
+                  color: Color(0xfffedd59),
+                  width: MediaQuery.of(context).size.width - 140,
+                  child: Center(
+                    child: Text(
+                      cardItemData.data.contains(widget.id)
+                          ? cardItemData
+                                  .added[cardItemData.data.indexOf(widget.id)]
+                              ? 'Remove'
+                              : 'Add to Cart'
+                          : 'Add to Cart',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 24.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
@@ -276,4 +241,3 @@ class _ProDesScreenState extends State<ProDesScreen> {
     );
   }
 }
-

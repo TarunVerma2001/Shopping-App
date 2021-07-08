@@ -48,7 +48,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                 names[i][index]['images'],
                 names[i][index]['price'],
                 names[i][index]['id'],
-                false,
+                'Add to Cart',
               );
             });
       }
@@ -63,7 +63,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
             names[0][index]['images'],
             names[0][index]['price'],
             names[0][index]['id'],
-            false,
+            'Add to Cart',
           );
         });
   }
@@ -185,7 +185,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
   //* ITEM CARD
 
   Widget itemCard(BuildContext context, String title, String imgpath,
-      List<String> photos, String price, int id, bool added) {
+      List<String> photos, String price, int id, String added) {
     
     CardItemdata cardItemData = Provider.of<CardItemdata>(context);
     return GestureDetector(
@@ -195,6 +195,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
             price: price,
             title: title,
             photos: photos,
+            id: id,
           );
         }));
       },
@@ -300,9 +301,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                             if (cardItemData.data.contains(id)) {
                               setState(() {
                                 cardItemData.removeId(id);
-                                // setState(() {
-                                //   added = false;
-                                // });
+                                // cardItemData.toggleAdded(id);
                               });
                               print(cardItemData.data);
 
@@ -316,12 +315,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                             } else {
                               setState(() {
                                 cardItemData.addId(id);
-                                // itemStatus = 'Added';
-                                // color = Color(0xffFEDD59);
-                                // elevation = 0;
-                                // setState(() {
-                                //   added = true;
-                                // });
+                                cardItemData.toggleAdded(id);
                               });
                               print(cardItemData.data);
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -354,7 +348,7 @@ class _HomeCatRibbonState extends State<HomeCatRibbon> {
                             width: 110.0,
                             child: Center(
                               child: Text(
-                                'Add to Cart',
+                                cardItemData.data.contains(id) ? cardItemData.added[cardItemData.data.indexOf(id)] ? 'Remove' : 'Add to Cart' : 'Add to Cart',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Quicksand',

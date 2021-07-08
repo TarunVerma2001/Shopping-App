@@ -105,7 +105,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           SizedBox(
-            height: 40,
+            height: 60,
           ),
           Center(
             child: Container(
@@ -114,18 +114,18 @@ class _LoginFormState extends State<LoginForm> {
               color: Colors.grey.withOpacity(0.5),
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Center(
-            child: Text(
-              'Forgot password?',
-              style: GoogleFonts.quicksand(
-                  fontSize: 15,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400),
-            ),
-          ),
+          // SizedBox(
+          //   height: 20,
+          // ),
+          // Center(
+          //   child: Text(
+          //     'Forgot password?',
+          //     style: GoogleFonts.quicksand(
+          //         fontSize: 15,
+          //         color: Colors.black,
+          //         fontWeight: FontWeight.w400),
+          //   ),
+          // ),
           SizedBox(
             height: 40,
           ),

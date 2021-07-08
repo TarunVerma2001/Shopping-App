@@ -67,7 +67,7 @@ class _StatsTopContainerState extends State<StatsTopContainer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 15.0,
+                height: 40.0,
               ),
               Row(
                 children: [
@@ -93,7 +93,7 @@ class _StatsTopContainerState extends State<StatsTopContainer> {
                       child: Center(
                         child: Text(
                           userStatus
-                              ? currentUser!.email.toString()[0].toUpperCase()
+                              ? FirebaseAuth.instance.currentUser!.email.toString()[0].toUpperCase()
                               : 'SI',
                           style: GoogleFonts.quicksand(
                             fontSize: 30,
@@ -122,7 +122,7 @@ class _StatsTopContainerState extends State<StatsTopContainer> {
                       ),
                       Text(
                         userStatus
-                        ? currentUser!.email.toString()
+                        ? FirebaseAuth.instance.currentUser!.email.toString()
                         : '',
                         style: GoogleFonts.quicksand(
                           fontSize: 15.0,
@@ -140,25 +140,25 @@ class _StatsTopContainerState extends State<StatsTopContainer> {
                   Card2(
                     imgPath: 'assets/images/card.png',
                     title: 'Pending payment',
-                    valueCount: '5',
+                    valueCount: userStatus ? '5' : '0',
                   ),
                   SizedBox(height: 10.0),
                   Card2(
                     imgPath: 'assets/images/box.png',
                     title: 'To be Shipped',
-                    valueCount: '3',
+                    valueCount: userStatus ? '3' : '0',
                   ),
                   SizedBox(height: 10.0),
                   Card2(
                     imgPath: 'assets/images/truck.png',
                     title: 'To be recieved',
-                    valueCount: '2',
+                    valueCount: userStatus ? '2' : '0',
                   ),
                   SizedBox(height: 10.0),
                   Card2(
                     imgPath: 'assets/images/returnbox.png',
                     title: 'Return / replace',
-                    valueCount: '1',
+                    valueCount: userStatus ? '1' : '0',
                   ),
                   SizedBox(height: 10.0),
                 ],

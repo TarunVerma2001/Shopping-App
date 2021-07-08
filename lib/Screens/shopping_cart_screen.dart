@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:furniture_app/Data/CartItemData.dart';
 import 'package:furniture_app/Data/productInformation.dart';
 import 'package:furniture_app/Reusable%20Components/BottomNavBar.dart';
+import 'package:furniture_app/Screens/address_screen.dart';
 import 'package:furniture_app/ShoppingCartPage/ShopCartTopContainer.dart';
 import 'package:furniture_app/services/usermanagement.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -191,35 +192,38 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen>
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: GestureDetector(
-                          onTap: () {
-                            if(totalAmount == 0){
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text("No items in the Cart!"),
-                                  elevation: 5.0,
-                                  duration: Duration(milliseconds: 600),
-                                ),
-                              );
-                            } else{
-                              print(FirebaseAuth.instance.currentUser!.email.toString());
-                              print(cardItemData.data);
-                              print('hii');
-                              CollectionReference users = FirebaseFirestore.instance.collection('Shopped product Ids');
-                              Map<String, List> shoppedItemsIds = {
-                                // 'emaisk': 'hiiii'
-                                FirebaseAuth.instance.currentUser!.email.toString(): cardItemData.data,
-                              };
-                              users.add(shoppedItemsIds).catchError((err) {
-                                print(err);
-                              });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text("Pushed List of Ids of selected items to firebase!"),
-                                  elevation: 5.0,
-                                  duration: Duration(milliseconds: 800),
-                                ),
-                              );
-                            }
+                          onTap: () async{
+                            // if(totalAmount == 0){
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //     SnackBar(
+                            //       content: Text("No items in the Cart!"),
+                            //       elevation: 5.0,
+                            //       duration: Duration(milliseconds: 600),
+                            //     ),
+                            //   );
+                            // } else{
+                            //   print(FirebaseAuth.instance.currentUser!.email.toString());
+                            //   print(cardItemData.data);
+                            //   print('hii');
+                            //   CollectionReference users = FirebaseFirestore.instance.collection('Shopped product Ids');
+                            //   Map<String, List> shoppedItemsIds = {
+                            //     // 'emaisk': 'hiiii'
+                            //     FirebaseAuth.instance.currentUser!.email.toString(): cardItemData.data,
+                            //   };
+                            //   await users.add(shoppedItemsIds).catchError((err) {
+                            //     print(err);
+                            //   });
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //     SnackBar(
+                            //       content: Text("Pushed List of Ids of selected items to firebase!"),
+                            //       elevation: 5.0,
+                            //       duration: Duration(milliseconds: 800),
+                            //     ),
+                            //   );
+                            // }
+                            Navigator.push(context, MaterialPageRoute(builder: (context){
+                              return AddressScreen(price: totalAmount,);
+                            }));
                           },
                           child: Material(
                             borderRadius: BorderRadius.circular(10),

@@ -31,8 +31,13 @@ class _HomeTopContainerState extends State<HomeTopContainer> {
       children: [
         Container(
           height: 250.0,
-          width: double.infinity,
-          color: Color(0xfffdd148),
+          width: MediaQuery.of(context).size.width,
+          
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(150),
+              // color: Color(0xfffdd148),
+              color: Colors.amber
+            ),
         ),
         Positioned(
           top: -200,

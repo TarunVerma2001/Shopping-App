@@ -54,206 +54,224 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         children: [
           StatsScreen(),
           AnimatedContainer(
-            decoration: BoxDecoration(
-              
-              boxShadow: [
-                BoxShadow(blurRadius: 20, color: Colors.grey, ),
-
-              ]
-            ),
+            // margin: EdgeInsets.only(top: 0),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                blurRadius: 20,
+                color: Colors.grey,
+              ),
+            ]),
             transform: Matrix4.translationValues(xOffset, yOffset, 0)
               ..scale(scaleFactor),
             duration: Duration(milliseconds: 600),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Scaffold(
-              
-              body: ListView(
-                children: [
-                  Column(
-                    children: [
-                      //top container
-                      // HomeTopContainer(),
-                      Stack(
-                        children: [
-                          Container(
-                            height: 250.0,
-                            width: double.infinity,
-                            color: Color(0xfffdd148),
-                          ),
-                          Positioned(
-                            top: -200,
-                            right: 100,
-                            child: Container(
-                              height: 400,
-                              width: 400,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(200),
-                                color: Color(0xfffee16d).withOpacity(0.5),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: -150,
-                            left: 200,
-                            child: Container(
-                              height: 300,
-                              width: 300,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(150),
-                                color: Color(0xfffee16d),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+              // backgroundColor: Colors.yellowAccent,
+              body: MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: ListView(
+                  children: [
+                    Column(
+                      children: [
+                          Stack(
                             children: [
-                              SizedBox(
-                                height: 15.0,
+                              Container(
+                                height: 250.0,
+                                width: MediaQuery.of(context).size.width,
+                                color: Color(0xfffdd148),
                               ),
-                              Row(
+                              Positioned(
+                                top: -200,
+                                right: 100,
+                                child: Container(
+                                  height: 400,
+                                  width: 400,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(200),
+                                    color: Color(0xfffee16d).withOpacity(0.5),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: -150,
+                                left: 200,
+                                child: Container(
+                                  height: 300,
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(150),
+                                    color: Color(0xfffee16d),
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    width: 15.0,
+                                    height: 40.0,
                                   ),
-                                  Container(
-                                      alignment: Alignment.topRight,
-                                      child: IconButton(
-                                        iconSize: 40,
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          sideSlider
-                                              ? setState(() {
-                                                  controller1.reverse();
-                                                  sideSlider = false;
-                                                  xOffset = 0;
-                                                  yOffset = 0;
-                                                  scaleFactor = 1;
-                                                })
-                                              : setState(
-                                                  () {
-                                                    controller1.forward();
-                                                    sideSlider = true;
-                                                    xOffset = MediaQuery.of(context).size.height - MediaQuery.of(context).size.height * 0.7;
-                                                    yOffset = MediaQuery.of(context).size.width - MediaQuery.of(context).size.width * 0.7;
-                                                    scaleFactor = 0.7;
-                                                  },
-                                                );
-                                        },
-                                        icon: AnimatedIcon(
-                                          icon: AnimatedIcons.menu_close,
-                                          progress: controller1,
-                                          // color: Colors.white,
-                                          // iconSize: 30.0,
-                                        ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 15.0,
                                       ),
-                                    ),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width - 140.0,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return LoginScreen();
-                                      }));
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.topLeft,
-                                      height: 50,
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                        color: Colors.teal,
-                                        borderRadius: BorderRadius.circular(25.0),
-                                        border: Border.all(
-                                            color: Colors.white,
-                                            style: BorderStyle.solid,
-                                            width: 2.0),
-                                        // image: DecorationImage(
-                                        //   image: AssetImage('assets/images/chris.jpg'),
-                                        // ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          userStatus
-                                              ? currentUser!.email
-                                                  .toString()[0]
-                                                  .toUpperCase()
-                                              : 'SI',
-                                          style: GoogleFonts.quicksand(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
+                                      Container(
+                                        alignment: Alignment.topRight,
+                                        child: IconButton(
+                                          iconSize: 40,
+                                          color: Colors.white,
+                                          onPressed: () {
+                                            sideSlider
+                                                ? setState(() {
+                                                    controller1.reverse();
+                                                    sideSlider = false;
+                                                    xOffset = 0;
+                                                    yOffset = 0;
+                                                    scaleFactor = 1;
+                                                  })
+                                                : setState(
+                                                    () {
+                                                      controller1.forward();
+                                                      sideSlider = true;
+                                                      xOffset =
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height -
+                                                              MediaQuery.of(context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.62;
+                                                      yOffset =
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width -
+                                                              MediaQuery.of(context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.7;
+                                                      scaleFactor = 0.7;
+                                                    },
+                                                  );
+                                          },
+                                          icon: AnimatedIcon(
+                                            icon: AnimatedIcons.menu_close,
+                                            progress: controller1,
+                                            // color: Colors.white,
+                                            // iconSize: 30.0,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 50,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 15.0),
-                                child: Text(
-                                  'Hello!',
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 35.0, fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 15.0),
-                                child: Text(
-                                  'What do you want to buy?',
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 23.0, fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 25,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                                child: Material(
-                                  elevation: 5.0,
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      prefixIcon: Icon(
-                                        Icons.search,
-                                        color: Color(0xffFEDF62),
-                                        size: 30.0,
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width -
+                                            140.0,
                                       ),
-                                      contentPadding:
-                                          EdgeInsets.only(left: 15, top: 15),
-                                      hintText: 'Search',
-                                      hintStyle:
-                                          GoogleFonts.quicksand(color: Colors.grey),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (context) {
+                                            return LoginScreen();
+                                          }));
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.topLeft,
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                            color: Colors.teal,
+                                            borderRadius:
+                                                BorderRadius.circular(25.0),
+                                            border: Border.all(
+                                                color: Colors.white,
+                                                style: BorderStyle.solid,
+                                                width: 2.0),
+                                            // image: DecorationImage(
+                                            //   image: AssetImage('assets/images/chris.jpg'),
+                                            // ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              userStatus
+                                                  ? FirebaseAuth
+                                                      .instance.currentUser!.email
+                                                      .toString()[0]
+                                                      .toUpperCase()
+                                                  : 'SI',
+                                              style: GoogleFonts.quicksand(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 15.0),
+                                    child: Text(
+                                      'Hello!',
+                                      style: GoogleFonts.quicksand(
+                                          fontSize: 35.0,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 15.0),
+                                    child: Text(
+                                      'What do you want to buy?',
+                                      style: GoogleFonts.quicksand(
+                                          fontSize: 23.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  // SizedBox(
+                                  //   height: 25,
+                                  // ),
+                                  // Padding(
+                                  //   padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                                  //   child: Material(
+                                  //     elevation: 5.0,
+                                  //     borderRadius: BorderRadius.circular(5.0),
+                                  //     child: TextFormField(
+                                  //       decoration: InputDecoration(
+                                  //         border: InputBorder.none,
+                                  //         prefixIcon: Icon(
+                                  //           Icons.search,
+                                  //           color: Color(0xffFEDF62),
+                                  //           size: 30.0,
+                                  //         ),
+                                  //         contentPadding:
+                                  //             EdgeInsets.only(left: 15, top: 15),
+                                  //         hintText: 'Search',
+                                  //         hintStyle:
+                                  //             GoogleFonts.quicksand(color: Colors.grey),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 10,
+                                  // ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                      //below search
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      HomeCatRibbon(),
-                    ],
-                  )
-                ],
+                        //below search
+              
+                        HomeCatRibbon(),
+                      ],
+                    )
+                  ],
+                ),
               ),
               bottomNavigationBar: Material(
                 elevation: 5.0,

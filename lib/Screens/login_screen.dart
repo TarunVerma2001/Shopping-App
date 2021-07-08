@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/LoginScreen/Login.dart';
 import 'package:furniture_app/LoginScreen/SignUp.dart';
+import 'package:furniture_app/Screens/home_screen.dart';
 import 'package:furniture_app/home_page/top_container.dart';
 import 'package:furniture_app/services/usermanagement.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,10 +66,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               child: userStatus
-                  ? Container()
+                  ? Container() 
                   : GestureDetector(
-                      onTap: () {
-                        // print('hii');
+                      onTap: () async{
+                        print('hii');
+                        UserCredential userCredencials = await signInWithGoogle();
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return MyHomePage();
+                        }));
                       },
                       child: Container(
                         margin: EdgeInsets.only(bottom: 100),
