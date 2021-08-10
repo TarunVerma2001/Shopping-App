@@ -75,7 +75,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   children: [
                     Column(
                       children: [
-                          Stack(
+                        Container(
+                          child: Stack(
                             children: [
                               Container(
                                 height: 250.0,
@@ -106,6 +107,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   ),
                                 ),
                               ),
+                              // Positioned(
+                                
+                              //   top: 250.0,
+                              //   child: Container(
+                              //     // height: MediaQuery.of(context).size.height,
+                              //     width: MediaQuery.of(context).size.width,
+                              //     child: HomeCatRibbon(),
+                              //   ),
+                              // ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -135,22 +145,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                     () {
                                                       controller1.forward();
                                                       sideSlider = true;
-                                                      xOffset =
+                                                      xOffset = MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .height -
                                                           MediaQuery.of(context)
                                                                   .size
-                                                                  .height -
-                                                              MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
-                                                                  0.62;
-                                                      yOffset =
+                                                                  .height *
+                                                              0.62;
+                                                      yOffset = MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width -
                                                           MediaQuery.of(context)
                                                                   .size
-                                                                  .width -
-                                                              MediaQuery.of(context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.7;
+                                                                  .width *
+                                                              0.7;
                                                       scaleFactor = 0.7;
                                                     },
                                                   );
@@ -170,7 +180,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       GestureDetector(
                                         onTap: () {
                                           Navigator.push(context,
-                                              MaterialPageRoute(builder: (context) {
+                                              MaterialPageRoute(
+                                                  builder: (context) {
                                             return LoginScreen();
                                           }));
                                         },
@@ -233,40 +244,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  // SizedBox(
-                                  //   height: 25,
-                                  // ),
-                                  // Padding(
-                                  //   padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                                  //   child: Material(
-                                  //     elevation: 5.0,
-                                  //     borderRadius: BorderRadius.circular(5.0),
-                                  //     child: TextFormField(
-                                  //       decoration: InputDecoration(
-                                  //         border: InputBorder.none,
-                                  //         prefixIcon: Icon(
-                                  //           Icons.search,
-                                  //           color: Color(0xffFEDF62),
-                                  //           size: 30.0,
-                                  //         ),
-                                  //         contentPadding:
-                                  //             EdgeInsets.only(left: 15, top: 15),
-                                  //         hintText: 'Search',
-                                  //         hintStyle:
-                                  //             GoogleFonts.quicksand(color: Colors.grey),
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // SizedBox(
-                                  //   height: 10,
-                                  // ),
                                 ],
                               ),
+                              // Positioned(
+                                
+                              //   top: 250.0,
+                              //   child: Container(
+                              //     // height: MediaQuery.of(context).size.height,
+                              //     width: MediaQuery.of(context).size.width,
+                              //     child: HomeCatRibbon(),
+                              //   ),
+                              // ),
                             ],
                           ),
-                        //below search
-              
+                        ),
+
                         HomeCatRibbon(),
                       ],
                     )

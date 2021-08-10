@@ -32,7 +32,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Icon(Icons.arrow_back,
+                      child: Icon(Icons.arrow_back_rounded,
                           color: Colors.black, size: 30))),
               SizedBox(
                 height: 20,

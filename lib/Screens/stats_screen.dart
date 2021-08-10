@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Reusable%20Components/BottomNavBar.dart';
+import 'package:furniture_app/Screens/change_password.dart';
 import 'package:furniture_app/Screens/contact_us_screen.dart';
 import 'package:furniture_app/Screens/login_screen.dart';
+import 'package:furniture_app/Screens/privacy_policy_screen.dart';
 import 'package:furniture_app/services/usermanagement.dart';
 import 'package:furniture_app/stats_page/top_container.dart';
 import 'package:furniture_app/stats_page/widgets/ListItemsCard.dart';
@@ -117,32 +119,49 @@ class _StatsScreenState extends State<StatsScreen>
             SizedBox(
               height: 40,
             ),
-            userStatus ? GestureDetector(onTap:(){
-              Navigator.push(context, MaterialPageRoute(builder: (context){
-                return ContactUsScreen();
-              }));
-            }, child: card('Support', Icons.phone_outlined)) : Container(),
             userStatus
-                ? card('Privacy policy', Icons.lock_outline)
-                : Container(),
-            userStatus ? card('FAQs', CupertinoIcons.question) : Container(),
-            userStatus
-                ? card('Order History', Icons.cases_rounded)
-                : Container(),
-            userStatus
-                ? card('Enter Promo Code', Icons.attach_file)
-                : Container(),
-            userStatus
-                ? card('Wallet', CupertinoIcons.creditcard)
-                : Container(),
-            userStatus ? card('Favorites', CupertinoIcons.star) : Container(),
+                ? Container()
+                : GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return LoginScreen();
+                    }));
+                    },
+                    child: card('Sign In', Icons.login_rounded),
+                  ),
             userStatus
                 ? GestureDetector(
-                    onTap: () async{
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ContactUsScreen();
+                      }));
+                    },
+                    child: card('Support', Icons.phone_outlined))
+                : Container(),
+            userStatus
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return PrivacyPolicyScreen();
+                      }));
+                    },
+                    child: card('Privacy policy', Icons.lock_outline))
+                : Container(),
+            userStatus ? GestureDetector(onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context){
+                return ChangePasswordScreen();
+              }));
+            }, child: card('Change Password', Icons.lock_clock_rounded)) : Container(),
+            userStatus
+                ? GestureDetector(
+                    onTap: () async {
                       await FirebaseAuth.instance.signOut();
-                        setState(() {
-                          userStatus = false;
-                        });
+                      setState(() {
+                        userStatus = false;
+                      });
                     },
                     child: card('Logout', Icons.logout),
                   )

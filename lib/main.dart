@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => CardItemdata(),
-      child: MaterialApp(
+      child: MaterialApp( 
         title: 'Furniture App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
